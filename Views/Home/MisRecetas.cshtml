@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Mis Recetas Favoritas - RecetasHub";
+}
+
+<div class="container mt-4 mb-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-danger fw-bold"><i class="bi bi-journal-bookmark-fill"></i> Mis Recetas Guardadas</h2>
+            <p class="text-muted">Tu recetario personal. Aquí están todos los platillos que has seleccionado de las diferentes fuentes.</p>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5 d-none" id="empty-state-container">
+        <div class="col-md-6 text-center bg-light p-5 rounded shadow-sm border border-danger border-opacity-25">
+            <i class="bi bi-egg text-muted" style="font-size: 4rem;"></i>
+            <h4 class="mt-3 fw-bold">Tu cocina está vacía</h4>
+            <p class="text-muted">Aún no has guardado ninguna receta en tu colección personal.</p>
+            <a href="/" class="btn btn-danger mt-2"><i class="bi bi-search"></i> Explorar Nuevas Recetas</a>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4" id="mis-recetas-grid">
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Pollo a la Parmesana">
+                <div class="card-body">
+                    <span class="badge bg-danger mb-2">Plato Principal</span>
+                    <h5 class="card-title fw-bold">Pollo a la Parmesana</h5>
+                    <p class="card-text small text-muted mb-1"><i class="bi bi-cloud-arrow-down"></i> Fuente: Spoonacular API</p>
+                    <p class="card-text small text-muted"><i class="bi bi-calendar-check"></i> Guardado el: 12/05/2026</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center pb-3">
+                    <button class="btn btn-outline-secondary border-0 fs-5 text-danger" title="Quitar de mis favoritos">
+                        <i class="bi bi-bookmark-x-fill"></i>
+                    </button>
+                    <button class="btn btn-sm btn-dark" title="Descargar JSON original">
+                        <i class="bi bi-download"></i> Exportar JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Pancakes Esponjosos">
+                <div class="card-body">
+                    <span class="badge bg-warning text-dark mb-2">Desayuno</span>
+                    <h5 class="card-title fw-bold">Pancakes Esponjosos</h5>
+                    <p class="card-text small text-muted mb-1"><i class="bi bi-cloud-arrow-down"></i> Fuente: TheMealDB</p>
+                    <p class="card-text small text-muted"><i class="bi bi-calendar-check"></i> Guardado el: 18/05/2026</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center pb-3">
+                    <button class="btn btn-outline-secondary border-0 fs-5 text-danger" title="Quitar de mis favoritos">
+                        <i class="bi bi-bookmark-x-fill"></i>
+                    </button>
+                    <button class="btn btn-sm btn-dark" title="Descargar JSON original">
+                        <i class="bi bi-download"></i> Exportar JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
