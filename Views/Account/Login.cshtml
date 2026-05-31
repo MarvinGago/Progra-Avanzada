@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Ingresar - RecetasHub";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-5 shadow-lg border-0" style="width: 28rem; border-radius: 15px;">
+        <div class="text-center mb-4">
+            <h2 class="text-danger"><i class="bi bi-egg-fried"></i> RecetasHub</h2>
+            <p class="text-muted">Inicia sesión para guardar tus recetas</p>
+        </div>
+
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label for="Username" class="form-label fw-bold">Usuario</label>
+                <input type="text" class="form-control" id="Username" name="Username" placeholder="Ej. chef_master" required>
+            </div>
+            <div class="mb-4">
+                <label for="Password" class="form-label fw-bold">Contraseña</label>
+                <input type="password" class="form-control" id="Password" name="Password" required>
+            </div>
+            <button type="submit" class="btn btn-danger w-100 py-2 fw-bold">Ingresar a la Cocina</button>
+        </form>
+    </div>
+</div>
