@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Agregar APIs de Recetas";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2 class="mb-4"><i class="bi bi-cloud-plus text-danger"></i> Registrar Nueva Fuente de Recetas</h2>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <form asp-action="SaveSource" method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre del Origen</label>
+                            <input type="text" class="form-control" name="Name" placeholder="Ej. Spoonacular Recetas Navideñas" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">URL del Endpoint (API)</label>
+                            <input type="url" class="form-control" name="Url" placeholder="https://api.external.com/v1/recipes" required />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Tipo de Componente</label>
+                                <select class="form-select" name="ComponentType">
+                                    <option value="api">API REST (JSON)</option>
+                                    <option value="feed">Feed RSS (XML)</option>
+                                    <option value="widget">Widget HTML</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3 d-flex align-items-center pt-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="RequiresSecret" name="RequiresSecret" value="true">
+                                    <label class="form-check-label fw-bold" for="RequiresSecret">¿Requiere API Key / Secret?</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 d-none" id="secretKeyNameContainer">
+                            <label class="form-label fw-bold text-danger" for="SecretKeyName">Nombre de la Llave a usar</label>
+                            <input type="text" class="form-control border-danger" id="SecretKeyName" name="SecretKeyName" placeholder="Ej. Spoon_Key_123" />
+                            <div class="form-text small">Debe coincidir con un KeyName registrado en la bóveda de secretos.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Descripción corta</label>
+                            <textarea class="form-control" name="Description" rows="2" placeholder="Opcional: Detalles sobre las cuotas de consulta..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100 fw-bold"><i class="bi bi-save"></i> Guardar Fuente</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Obtenemos los elementos 
+            const checkbox = document.getElementById("RequiresSecret");
+            const container = document.getElementById("secretKeyNameContainer");
+            const inputField = document.getElementById("SecretKeyName");
+
+            checkbox.addEventListener("change", function () {
+                if (this.checked) {
+                    // Si se marca el check mostramos el contenedor y hacemos el campo obligatorio
+                    container.classList.remove("d-none");
+                    inputField.required = true;
+                } else {
+                    // Si se desmarca el check ocultamos el contenedor, limpiamos lo escrito y quitamos el obligatorio
+                    container.classList.add("d-none");
+                    inputField.value = "";
+                    inputField.required = false;
+                }
+            });
+        });
+    </script>
+}

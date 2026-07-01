@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="API/API.csproj" Id="6f9757ab-e6a3-4784-b3e8-03f214bec5f8" />
+  <Project Path="Architecture/Architecture.csproj" Id="f0d101bc-a069-43ea-bdeb-97985a01f6ec" />
+  <Project Path="Business/Business.csproj" Id="fc2eb04d-1a2a-4474-a988-b0f1f111758c" />
+  <Project Path="Console App/Console App.csproj" Id="f3e69f21-7d3b-42cf-aa1f-c7c4e78d6c82" />
+  <Project Path="Data/Data.csproj" Id="b7697ffe-f891-46fd-9418-cd6fe4355ba1" />
+  <Project Path="Models/Models.csproj" Id="6c8ef94e-1099-4718-8c64-33c996e590f9" />
+  <Project Path="RecetasHub/RecetasHub.csproj" />
+  <Project Path="Repository/Repository.csproj" Id="3ef22a4b-4c31-4125-93d2-a9f7404423b5" />
+</Solution>

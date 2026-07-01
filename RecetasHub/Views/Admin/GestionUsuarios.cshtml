@@ -1,0 +1,145 @@
+﻿@model List<RecetasHub.Models.UserViewModel>
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4"><i class="bi bi-people-fill text-primary"></i> Usuarios y Permisos</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        var isSuccess = TempData["Success"]?.ToString() == "True";
+        <div class="alert @(isSuccess ? "alert-success" : "alert-danger") alert-dismissible fade show py-2" role="alert">
+            @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show py-2" role="alert">
+            @ViewBag.Error
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Tabla de usuarios -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>Rol Actual</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td class="fw-bold">@user.Username</td>
+                                <td>
+                                    <span class="badge @(user.RoleName == "Administrador" ? "bg-danger" : "bg-secondary")">
+                                        @user.RoleName
+                                    </span>
+                                </td>
+                                <td class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editRoleModal"
+                                            data-userid="@user.Id"
+                                            data-username="@user.Username"
+                                            data-roleid="@user.RoleId">
+                                        <i class="bi bi-pencil"></i> Rol
+                                    </button>
+                                    <form asp-action="DeleteUser" method="post"
+                                          onsubmit="return confirm('¿Eliminar a @user.Username?')">
+                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crear nuevo usuario -->
+    <div class="card shadow-sm border-primary">
+        <div class="card-header bg-primary text-white fw-bold">
+            <i class="bi bi-person-plus"></i> Crear Nuevo Usuario
+        </div>
+        <div class="card-body">
+            <form asp-action="CreateUser" method="post" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Username</label>
+                    <input type="text" class="form-control" name="Username"
+                           placeholder="Ej. chef_master o nombre@@recetashub.com" required />
+                    <div class="form-text">Admins deben usar @@recetashub.com</div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Contraseña</label>
+                    <input type="password" class="form-control" name="Password" required />
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Rol</label>
+                    <select class="form-select" name="RoleId">
+                        <option value="2">Estándar</option>
+                        <option value="1">Administrador</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-person-check"></i> Crear
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Cambiar rol -->
+<div class="modal fade" id="editRoleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modificar Rol</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="ChangeRole" method="post">
+                    <input type="hidden" name="UserId" id="modalUserId" />
+                    <p>Usuario: <strong id="modalUsername"></strong></p>
+                    <div class="mb-3">
+                        <label class="form-label">Seleccionar Nuevo Rol</label>
+                        <select class="form-select" name="NewRoleId" id="modalRoleSelect">
+                            <option value="1">Administrador</option>
+                            <option value="2">Estándar</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const modal = document.getElementById('editRoleModal');
+        modal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            document.getElementById('modalUserId').value = button.getAttribute('data-userid');
+            document.getElementById('modalUsername').textContent = button.getAttribute('data-username');
+            document.getElementById('modalRoleSelect').value = button.getAttribute('data-roleid');
+        });
+    </script>
+}
